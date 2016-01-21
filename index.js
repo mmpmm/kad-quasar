@@ -5,4 +5,4 @@
 'use strict';
 
 module.exports = require('./lib/quasar');
-module.exports.AttenuatedBloomFilter = require('./lib/attenuated-bloom-filter');
+module.exports.AttenuatedBloomFilter = require('./lib/bloomfilter');
