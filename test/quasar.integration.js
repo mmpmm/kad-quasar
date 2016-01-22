@@ -46,7 +46,7 @@ describe('Quasar', function() {
     if (i) {
       node.connect(NODES[i - 1]._self);
     }
-    Q_NODES[i] = new Quasar(NODES[i]._router);
+    Q_NODES[i] = Quasar(NODES[i]._router);
   });
 
   describe('Integration', function() {
