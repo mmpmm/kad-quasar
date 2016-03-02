@@ -12,7 +12,7 @@ describe('Quasar', function() {
   var Q_NODES = [];
 
   function createTestNodeOnPort(port) {
-    var logger = new kad.Logger(0);
+    var logger = new kad.Logger(2);
     var contact = new kad.contacts.AddressPortContact({
       address: '127.0.0.1',
       port: port
