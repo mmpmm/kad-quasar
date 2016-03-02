@@ -20,8 +20,8 @@ npm install kad kad-quasar --save
 Give kad-quasar your `kad.Router`:
 
 ```js
-var Quasar = require('kad-quasar');
-var topics = new Quasar(router);
+var quasar = require('kad-quasar');
+var topics = new quasar.Protocol(router);
 
 topics.subscribe('beep', function(content) {
   console.log(content); // { "message": "boop" }
