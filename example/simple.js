@@ -6,7 +6,7 @@
 
 // Import kad and kad-quasar
 const kad = require('kad');
-const Quasar = require('kad-quasar');
+const Quasar = require('kad-quasar').Protocol;
 
 // Setup storage adapter and logger
 var logger = new kad.Logger(4);
