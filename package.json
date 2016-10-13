@@ -1,6 +1,6 @@
 {
   "name": "kad-quasar",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "publish/subscribe extension system for kad",
   "main": "index.js",
   "directories": {
