@@ -27,6 +27,12 @@
     "network"
   ],
   "author": "Gordon Hall <gordon@gordonwritescode.com>",
+  "contributors": [
+    {
+      "name": "littleskunk",
+      "url": "https://github.com/littleskunk"
+    }
+  ],
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/kadtools/kad-quasar/issues"
