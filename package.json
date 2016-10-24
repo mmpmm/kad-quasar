@@ -1,6 +1,6 @@
 {
   "name": "kad-quasar",
-  "version": "0.3.3",
+  "version": "1.0.0",
   "description": "publish/subscribe extension system for kad",
   "main": "index.js",
   "directories": {
@@ -49,7 +49,8 @@
   "dependencies": {
     "async": "^1.5.2",
     "bloem": "^0.2.4",
-    "kad": "^1.5.9",
+    "kad": "^1.6.0",
+    "knuth-shuffle": "^1.0.1",
     "lru-cache": "^4.0.1",
     "merge": "^1.2.0",
     "node-uuid": "^1.4.7"
