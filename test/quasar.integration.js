@@ -1,5 +1,6 @@
 'use strict';
 
+var async = require('async');
 var expect = require('chai').expect;
 var kad = require('kad');
 var Quasar = require('../lib/quasar');
@@ -57,11 +58,16 @@ describe('Quasar', function() {
     NUM_NODES--;
   }
 
-  NODES.forEach(function(node, i) {
-    if (i) {
-      node.connect(NODES[i - 1]._self);
-    }
-    Q_NODES[i] = Quasar(NODES[i]._router);
+  before(function(done) {
+    async.eachOfSeries(NODES, function(node, i, next) {
+      if (i) {
+        node.connect(NODES[i - 1]._self, next);
+        Q_NODES[i] = Quasar(NODES[i]._router);
+      } else {
+        Q_NODES[i] = Quasar(NODES[i]._router);
+        next();
+      }
+    }, done);
   });
 
   describe('Integration', function() {
