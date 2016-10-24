@@ -49,7 +49,7 @@
   "dependencies": {
     "async": "^1.5.2",
     "bloem": "^0.2.4",
-    "kad": "^1.5.9",
+    "kad": "^1.6.0",
     "knuth-shuffle": "^1.0.1",
     "lru-cache": "^4.0.1",
     "merge": "^1.2.0",
