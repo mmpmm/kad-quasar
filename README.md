@@ -5,8 +5,8 @@ Kad Quasar
 [![Coverage Status](https://img.shields.io/coveralls/kadtools/kad-quasar.svg?style=flat-square)](https://coveralls.io/r/kadtools/kad-quasar)
 [![NPM](https://img.shields.io/npm/v/kad-quasar.svg?style=flat-square)](https://www.npmjs.com/package/kad-quasar)
 
-Publish/Subscribe extension system for [Kad](https://github.com/kadtools/kad),
-based on  [Quasar](http://research.microsoft.com/en-us/um/people/saikat/pub/iptps08-quasar.pdf).
+Distributed publish-subscribe plugin for [Kad](https://github.com/kadtools/kad),
+based on [Quasar](http://research.microsoft.com/en-us/um/people/saikat/pub/iptps08-quasar.pdf).
 
 Quick Start
 -----------
@@ -14,34 +14,34 @@ Quick Start
 Install kad-quasar with NPM:
 
 ```bash
-npm install kad kad-quasar --save
+npm install kad-quasar --save
 ```
 
-Give kad-quasar your `kad.Router`:
+Plugin to your existing Kad project:
 
 ```js
-var quasar = require('kad-quasar');
-var topics = new quasar.Protocol(router);
+const kad = require('kad');
+const quasar = require('kad-quasar');
+const node = kad({ /* options */ });
 
-topics.subscribe('beep', function(content) {
-  console.log(content); // { "message": "boop" }
+node.plugin(quasar);
+
+node.quasarSubscribe('topic string', (content) => {
+  node.logger.info(content);
 });
 
-topics.publish('beep', {
-  message: 'boop'
+node.quasarPublish('topic string', {
+  some: 'content'
 });
 ```
 
 Overview
 --------
 
-> Please note that this software is **alpha** stage and may not be suitable for
-> production systems.
-
 Kad Quasar extends [Kad](https://github.com/kadtools/kad) with a [publish/subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern)
 system, enabling different applications to run on the same overlay network.
 
-To do this, Kad Quasar uses the `kad.Router` object's contact list to build an
+To do this, Kad Quasar uses the routing table's contact list to build an
 attenuated [bloom filter](https://en.wikipedia.org/wiki/Bloom_filter) where each
 filter in the series contains topics that your node and your neighbors are
 subscribed to represented in "hops" from your node.
@@ -54,15 +54,15 @@ interested in a given topic and serves to prevent flooding the network while
 still maintaining a high probability that the message will be delivered to all
 nodes interested.
 
-Class: Quasar(kad.Router)
--------------------------
+Class: QuasarNode(options)
+--------------------------
 
-The `Quasar` class implements [Quasar: A Probabilistic Publish-Subscribe System](http://research.microsoft.com/en-us/um/people/saikat/pub/iptps08-quasar.pdf),
-given an instance of `kad.Router`. It creates and manages an attenuated bloom
-filter representing the different topics to which your neighboring nodes are
-subscribed.
+The `QuasarNode` class decorates the 
+[`KademliaNode`](https://kadtools.github.io/KademliaNode.html) class in Kad. 
+It creates and manages an attenuated bloom filter representing the different 
+topics to which your neighboring nodes are subscribed.
 
-### q.publish(topic[, content])
+### node.quasarPublish(topic[, content])
 
 Publishes a message to your nearest neighbors on the given `topic` (and
 optional) `content` object. Those neighbors, in turn, relay the message to
@@ -73,7 +73,7 @@ their neighbors in accordance with their view of the the network.
 * `topic` - (String) identifier for the topic
 * `content` - (Mixed) additional data describing the publication
 
-### q.subscribe(topic[, handler])
+### node.quasarSubscribe(topic[, handler])
 
 Updates our local attenuated bloom filter to reflect our interest in the topic
 and notifies our neighbors to relay publications matching the topic to us. In
@@ -84,3 +84,22 @@ the same.
 
 * `topic` - (String) identifier for the topic
 * `handler` - (Function) receives arguments `content` with published data
+
+License
+-------
+
+Kad Quasar - Distributed publish-subscribe plugin for Kad  
+Copyright (C) 2017 Gordon Hall
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see http://www.gnu.org/licenses/.

@@ -1,18 +1,16 @@
 {
   "name": "kad-quasar",
   "version": "2.0.0",
-  "description": "publish/subscribe extension system for kad",
+  "description": "publish-subscribe system for kad",
   "main": "index.js",
   "directories": {
-    "doc": "doc",
-    "example": "example",
     "test": "test"
   },
   "scripts": {
     "test": "npm run testsuite && npm run linter",
     "testsuite": "./node_modules/.bin/mocha test/** --recursive",
     "coverage": "./node_modules/.bin/istanbul cover -x 'lib/logger.js' ./node_modules/.bin/_mocha -- --recursive",
-    "linter": "./node_modules/.bin/jshint --config .jshintrc ./index.js ./lib ./test"
+    "linter": "eslint index.js lib test"
   },
   "repository": {
     "type": "git",
@@ -44,15 +42,15 @@
   "devDependencies": {
     "chai": "^3.4.1",
     "coveralls": "^2.11.6",
+    "eslint": "^3.17.1",
     "istanbul": "^0.4.2",
-    "jshint": "^2.9.1",
     "mocha": "^2.3.4",
     "sinon": "^1.17.2"
   },
   "dependencies": {
-    "async": "^1.5.2",
+    "async": "^2.1.4",
     "atbf": "^1.1.0",
-    "kad": "^1.6.0",
+    "kad": "^2.0.0",
     "knuth-shuffle": "^1.0.1",
     "lru-cache": "^4.0.1",
     "merge": "^1.2.0",
