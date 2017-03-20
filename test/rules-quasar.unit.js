@@ -176,14 +176,14 @@ describe('QuasarRules', function() {
       let cachedSet = sinon.stub();
       let handler = sinon.stub();
       let pullFilterFrom = sinon.stub().callsArgWith(1, null, []);
-      let _getRandomOverlayNeighbor = sinon.stub().returns([])
+      let _getRandomContact = sinon.stub().returns([])
       let rules = new QuasarRules({
         node: {
           router,
           identity
         },
         pullFilterFrom: pullFilterFrom,
-        _getRandomOverlayNeighbor: _getRandomOverlayNeighbor,
+        _getRandomContact: _getRandomContact,
         groups: {
           get: sinon.stub().returns(handler)
         },
@@ -214,7 +214,7 @@ describe('QuasarRules', function() {
         expect(params).to.have.lengthOf(0);
         expect(cachedSet.calledWithMatch(id)).to.equal(true);
         expect(_relayPublication.callCount).to.equal(3);
-        expect(_getRandomOverlayNeighbor.callCount).to.equal(1);
+        expect(_getRandomContact.callCount).to.equal(1);
         done();
       };
       rules.publish({ params: msg }, { send });
