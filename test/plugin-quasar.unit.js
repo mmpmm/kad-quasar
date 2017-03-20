@@ -139,7 +139,7 @@ describe('QuasarPlugin', function() {
 
   describe('@method pullFilters', function() {
 
-   it('should callback early if updated within an hour', function(done) {
+    it('should callback early if updated within an hour', function(done) {
       let plugin = new QuasarPlugin({ identity, router, use });
       let pullFilterFrom = sinon.stub(plugin, 'pullFilterFrom').callsArg(1);
       plugin._lastUpdate = Date.now();
@@ -147,11 +147,11 @@ describe('QuasarPlugin', function() {
         expect(pullFilterFrom.callCount).to.equal(0);
         done();
       });
-   });
+    });
 
-   it('should bubble errors from pulling the filter', function(done) {
+    it('should bubble errors from pulling the filter', function(done) {
       let plugin = new QuasarPlugin({ identity, router, use, logger });
-      let pullFilterFrom = sinon.stub(plugin, 'pullFilterFrom').callsArgWith(
+      sinon.stub(plugin, 'pullFilterFrom').callsArgWith(
         1,
         new Error('Request timed out')
       );
@@ -161,9 +161,9 @@ describe('QuasarPlugin', function() {
         expect(err.message).to.equal('Request timed out');
         done();
       });
-   });
+    });
 
-   it('should merge all the filters with local', function(done) {
+    it('should merge all the filters with local', function(done) {
       let plugin = new QuasarPlugin({ identity, router, use });
       let remote1 = new BloomFilter({ filterDepth: 3, bitfieldSize: 160 });
       let remote2 = new BloomFilter({ filterDepth: 3, bitfieldSize: 160 });
@@ -182,7 +182,7 @@ describe('QuasarPlugin', function() {
         expect(plugin.hasNeighborSubscribedTo('remote 3')).to.equal(true);
         done();
       });
-   });
+    });
 
   });
 
@@ -210,7 +210,7 @@ describe('QuasarPlugin', function() {
       plugin.node.send = function(method, params, contact, callback) {
         callback(new Error('Timeout'));
       };
-      plugin.pullFilterFrom([], (err, filter) => {
+      plugin.pullFilterFrom([], (err) => {
         expect(err.message).to.equal('Timeout');
         done();
       });
@@ -223,7 +223,7 @@ describe('QuasarPlugin', function() {
       plugin.node.send = function(method, params, contact, callback) {
         callback(null, ['some', 'bad', 'data?']);
       };
-      plugin.pullFilterFrom([], (err, filter) => {
+      plugin.pullFilterFrom([], (err) => {
         expect(err.message).to.equal('Invalid hex string');
         done();
       });
