@@ -42,7 +42,7 @@ describe('Kad Quasar E2E (w/ UDPTransport)', function() {
   });
 
   after(function() {
-    nodes.forEach((node) => node._transport.socket.close());
+    nodes.forEach((node) => node.transport.socket.close());
   });
 
   it('nodes subscribed to a topic should receive publication', function(done) {
