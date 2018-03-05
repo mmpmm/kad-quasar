@@ -1,3 +1,8 @@
+# :warning: Deprecated! KadTools is now [Kadence](https://github.com/kadence)! :warning:
+
+---
+
+
 Kad Quasar
 ==========
 
